@@ -1,5 +1,8 @@
-const { Pool } = require('pg');
 require('dotenv').config();
+const { Pool } = require('pg');
+
+// Global fallback for self-signed certificate issues in production
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 console.log("DATABASE_URL:", process.env.DATABASE_URL);
 
