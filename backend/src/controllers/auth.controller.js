@@ -5,12 +5,17 @@ class AuthController {
     try {
       const { email, password, role } = req.body;
       const user = await AuthService.register(email, password, role);
-      res.status(201).json({ message: 'User registered successfully', userId: user.id });
+      res.status(201).json({ 
+        success: true,
+        message: 'User registered successfully', 
+        userId: user.id 
+      });
     } catch (error) {
+      console.error(`[CONTROLLER-REGISTER] Error: ${error.message}`);
       if (error.message === 'User already exists') {
-        return res.status(409).json({ message: error.message });
+        return res.status(409).json({ success: false, message: error.message });
       }
-      res.status(500).json({ message: 'Internal server error', error: error.message });
+      res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
     }
   }
 
@@ -19,23 +24,33 @@ class AuthController {
       const { email, password } = req.body;
       const { accessToken, refreshToken, user } = await AuthService.login(email, password);
 
+      const isProd = process.env.NODE_ENV === 'production';
+      
       res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        secure: isProd,
+        sameSite: isProd ? 'none' : 'strict', // None for cross-domain prod if needed
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
 
       res.cookie('accessToken', accessToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        secure: isProd,
+        sameSite: isProd ? 'none' : 'strict',
         maxAge: 15 * 60 * 1000, // 15 mins
       });
 
-      res.status(200).json({ accessToken, user });
+      res.status(200).json({ 
+        success: true,
+        message: 'Login successful',
+        accessToken, 
+        user 
+      });
     } catch (error) {
-      res.status(401).json({ message: error.message || 'Invalid credentials' });
+      console.error(`[CONTROLLER-LOGIN] Error: ${error.message}`);
+      // Standardize 401 for any auth failure
+      const status = error.message.includes('Invalid') ? 401 : 500;
+      res.status(status).json({ success: false, message: error.message || 'Authentication failed' });
     }
   }
 
@@ -43,21 +58,23 @@ class AuthController {
     try {
       const refreshToken = req.cookies.refreshToken;
       if (!refreshToken) {
-        return res.status(401).json({ message: 'Refresh token not found' });
+        return res.status(401).json({ success: false, message: 'Refresh token not found' });
       }
 
       const accessToken = await AuthService.refresh(refreshToken);
       
+      const isProd = process.env.NODE_ENV === 'production';
       res.cookie('accessToken', accessToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        secure: isProd,
+        sameSite: isProd ? 'none' : 'strict',
         maxAge: 15 * 60 * 1000, // 15 mins
       });
 
-      res.status(200).json({ accessToken });
+      res.status(200).json({ success: true, accessToken });
     } catch (error) {
-      res.status(401).json({ message: 'Invalid refresh token' });
+      console.error(`[CONTROLLER-REFRESH] Error: ${error.message}`);
+      res.status(401).json({ success: false, message: 'Invalid or expired refresh token' });
     }
   }
 
@@ -68,9 +85,11 @@ class AuthController {
         await AuthService.logout(refreshToken);
       }
       res.clearCookie('refreshToken');
-      res.status(200).json({ message: 'Logged out successfully' });
+      res.clearCookie('accessToken');
+      res.status(200).json({ success: true, message: 'Logged out successfully' });
     } catch (error) {
-      res.status(500).json({ message: 'Error during logout' });
+      console.error(`[CONTROLLER-LOGOUT] Error: ${error.message}`);
+      res.status(500).json({ success: false, message: 'Error during logout' });
     }
   }
 }
