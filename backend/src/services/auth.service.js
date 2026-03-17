@@ -13,6 +13,10 @@ class AuthService {
       throw new Error('User already exists');
     }
 
+    if (!password) {
+      throw new Error('Password is required');
+    }
+
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
 

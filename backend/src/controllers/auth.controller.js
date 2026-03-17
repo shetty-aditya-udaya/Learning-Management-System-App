@@ -2,8 +2,14 @@ const AuthService = require('../services/auth.service');
 
 class AuthController {
   static async register(req, res) {
+    console.log("Incoming body:", req.body);
     try {
       const { email, password, role } = req.body;
+
+      if (!email || !password) {
+        return res.status(400).json({ success: false, message: "Email and password are required" });
+      }
+
       const user = await AuthService.register(email, password, role);
       res.status(201).json({ 
         success: true,
@@ -11,17 +17,23 @@ class AuthController {
         userId: user.id 
       });
     } catch (error) {
-      console.error(`[CONTROLLER-REGISTER] Error: ${error.message}`);
+      console.error("AUTH ERROR:", error);
       if (error.message === 'User already exists') {
         return res.status(409).json({ success: false, message: error.message });
       }
-      res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
+      res.status(500).json({ success: false, message: error.message || 'Internal server error' });
     }
   }
 
   static async login(req, res) {
+    console.log("Incoming body:", req.body);
     try {
       const { email, password } = req.body;
+
+      if (!email || !password) {
+        return res.status(400).json({ success: false, message: "Email and password are required" });
+      }
+
       const { accessToken, refreshToken, user } = await AuthService.login(email, password);
 
       const isProd = process.env.NODE_ENV === 'production';
@@ -29,7 +41,7 @@ class AuthController {
       res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
         secure: isProd,
-        sameSite: isProd ? 'none' : 'strict', // None for cross-domain prod if needed
+        sameSite: isProd ? 'none' : 'strict',
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
 
@@ -47,8 +59,7 @@ class AuthController {
         user 
       });
     } catch (error) {
-      console.error(`[CONTROLLER-LOGIN] Error: ${error.message}`);
-      // Standardize 401 for any auth failure
+      console.error("AUTH ERROR:", error);
       const status = error.message.includes('Invalid') ? 401 : 500;
       res.status(status).json({ success: false, message: error.message || 'Authentication failed' });
     }
@@ -73,7 +84,7 @@ class AuthController {
 
       res.status(200).json({ success: true, accessToken });
     } catch (error) {
-      console.error(`[CONTROLLER-REFRESH] Error: ${error.message}`);
+      console.error("AUTH ERROR (REFRESH):", error);
       res.status(401).json({ success: false, message: 'Invalid or expired refresh token' });
     }
   }
@@ -88,7 +99,7 @@ class AuthController {
       res.clearCookie('accessToken');
       res.status(200).json({ success: true, message: 'Logged out successfully' });
     } catch (error) {
-      console.error(`[CONTROLLER-LOGOUT] Error: ${error.message}`);
+      console.error("AUTH ERROR (LOGOUT):", error);
       res.status(500).json({ success: false, message: 'Error during logout' });
     }
   }
