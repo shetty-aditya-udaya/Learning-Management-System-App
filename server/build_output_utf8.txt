@@ -1,0 +1,79 @@
+﻿src/app.ts(4,20): error TS2307: Cannot find module 'dotenv' or its corresponding type declarations.
+src/config/database.ts(2,28): error TS2307: Cannot find module 'typeorm' or its corresponding type declarations.
+src/config/database.ts(3,20): error TS2307: Cannot find module 'dotenv' or its corresponding type declarations.
+src/controllers/course.controller.ts(20,58): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/controllers/course.controller.ts(32,68): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/controllers/progress.controller.ts(11,68): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/controllers/progress.controller.ts(23,67): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/controllers/progress.controller.ts(35,68): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/entities/Course.ts(1,85): error TS2307: Cannot find module 'typeorm' or its corresponding type declarations.
+src/entities/Course.ts(8,3): error TS2564: Property 'id' has no initializer and is not definitely assigned in the constructor.
+src/entities/Course.ts(11,3): error TS2564: Property 'title' has no initializer and is not definitely assigned in the constructor.
+src/entities/Course.ts(14,3): error TS2564: Property 'description' has no initializer and is not definitely assigned in the constructor.
+src/entities/Course.ts(17,3): error TS2564: Property 'thumbnail_url' has no initializer and is not definitely assigned in the constructor.
+src/entities/Course.ts(20,3): error TS2564: Property 'published' has no initializer and is not definitely assigned in the constructor.
+src/entities/Course.ts(23,3): error TS2564: Property 'created_at' has no initializer and is not definitely assigned in the constructor.
+src/entities/Course.ts(25,30): error TS7006: Parameter 'section' implicitly has an 'any' type.
+src/entities/Course.ts(26,3): error TS2564: Property 'sections' has no initializer and is not definitely assigned in the constructor.
+src/entities/Course.ts(28,33): error TS7006: Parameter 'enrollment' implicitly has an 'any' type.
+src/entities/Course.ts(29,3): error TS2564: Property 'enrollments' has no initializer and is not definitely assigned in the constructor.
+src/entities/Enrollment.ts(1,108): error TS2307: Cannot find module 'typeorm' or its corresponding type declarations.
+src/entities/Enrollment.ts(10,3): error TS2564: Property 'id' has no initializer and is not definitely assigned in the constructor.
+src/entities/Enrollment.ts(13,3): error TS2564: Property 'enrolled_at' has no initializer and is not definitely assigned in the constructor.
+src/entities/Enrollment.ts(15,27): error TS7006: Parameter 'user' implicitly has an 'any' type.
+src/entities/Enrollment.ts(17,3): error TS2564: Property 'user' has no initializer and is not definitely assigned in the constructor.
+src/entities/Enrollment.ts(19,29): error TS7006: Parameter 'course' implicitly has an 'any' type.
+src/entities/Enrollment.ts(21,3): error TS2564: Property 'course' has no initializer and is not definitely assigned in the constructor.
+src/entities/Enrollment.ts(23,31): error TS7006: Parameter 'progress' implicitly has an 'any' type.
+src/entities/Enrollment.ts(24,3): error TS2564: Property 'progress_records' has no initializer and is not definitely assigned in the constructor.
+src/entities/Lesson.ts(1,90): error TS2307: Cannot find module 'typeorm' or its corresponding type declarations.
+src/entities/Lesson.ts(8,3): error TS2564: Property 'id' has no initializer and is not definitely assigned in the constructor.
+src/entities/Lesson.ts(11,3): error TS2564: Property 'title' has no initializer and is not definitely assigned in the constructor.
+src/entities/Lesson.ts(14,3): error TS2564: Property 'video_url' has no initializer and is not definitely assigned in the constructor.
+src/entities/Lesson.ts(17,3): error TS2564: Property 'duration_seconds' has no initializer and is not definitely assigned in the constructor.
+src/entities/Lesson.ts(20,3): error TS2564: Property 'order_index' has no initializer and is not definitely assigned in the constructor.
+src/entities/Lesson.ts(22,30): error TS7006: Parameter 'section' implicitly has an 'any' type.
+src/entities/Lesson.ts(24,3): error TS2564: Property 'section' has no initializer and is not definitely assigned in the constructor.
+src/entities/Lesson.ts(26,31): error TS7006: Parameter 'progress' implicitly has an 'any' type.
+src/entities/Lesson.ts(27,3): error TS2564: Property 'progress_records' has no initializer and is not definitely assigned in the constructor.
+src/entities/Progress.ts(1,123): error TS2307: Cannot find module 'typeorm' or its corresponding type declarations.
+src/entities/Progress.ts(9,3): error TS2564: Property 'id' has no initializer and is not definitely assigned in the constructor.
+src/entities/Progress.ts(12,3): error TS2564: Property 'watched_seconds' has no initializer and is not definitely assigned in the constructor.
+src/entities/Progress.ts(15,3): error TS2564: Property 'is_completed' has no initializer and is not definitely assigned in the constructor.
+src/entities/Progress.ts(18,3): error TS2564: Property 'created_at' has no initializer and is not definitely assigned in the constructor.
+src/entities/Progress.ts(21,3): error TS2564: Property 'last_watched_at' has no initializer and is not definitely assigned in the constructor.
+src/entities/Progress.ts(23,33): error TS7006: Parameter 'enrollment' implicitly has an 'any' type.
+src/entities/Progress.ts(25,3): error TS2564: Property 'enrollment' has no initializer and is not definitely assigned in the constructor.
+src/entities/Progress.ts(27,29): error TS7006: Parameter 'lesson' implicitly has an 'any' type.
+src/entities/Progress.ts(29,3): error TS2564: Property 'lesson' has no initializer and is not definitely assigned in the constructor.
+src/entities/Section.ts(1,90): error TS2307: Cannot find module 'typeorm' or its corresponding type declarations.
+src/entities/Section.ts(8,3): error TS2564: Property 'id' has no initializer and is not definitely assigned in the constructor.
+src/entities/Section.ts(11,3): error TS2564: Property 'title' has no initializer and is not definitely assigned in the constructor.
+src/entities/Section.ts(14,3): error TS2564: Property 'order_index' has no initializer and is not definitely assigned in the constructor.
+src/entities/Section.ts(16,29): error TS7006: Parameter 'course' implicitly has an 'any' type.
+src/entities/Section.ts(18,3): error TS2564: Property 'course' has no initializer and is not definitely assigned in the constructor.
+src/entities/Section.ts(20,29): error TS7006: Parameter 'lesson' implicitly has an 'any' type.
+src/entities/Section.ts(21,3): error TS2564: Property 'lessons' has no initializer and is not definitely assigned in the constructor.
+src/entities/User.ts(1,85): error TS2307: Cannot find module 'typeorm' or its corresponding type declarations.
+src/entities/User.ts(13,3): error TS2564: Property 'id' has no initializer and is not definitely assigned in the constructor.
+src/entities/User.ts(16,3): error TS2564: Property 'email' has no initializer and is not definitely assigned in the constructor.
+src/entities/User.ts(19,3): error TS2564: Property 'password_hash' has no initializer and is not definitely assigned in the constructor.
+src/entities/User.ts(22,3): error TS2564: Property 'role' has no initializer and is not definitely assigned in the constructor.
+src/entities/User.ts(25,3): error TS2564: Property 'created_at' has no initializer and is not definitely assigned in the constructor.
+src/entities/User.ts(27,33): error TS7006: Parameter 'enrollment' implicitly has an 'any' type.
+src/entities/User.ts(28,3): error TS2564: Property 'enrollments' has no initializer and is not definitely assigned in the constructor.
+src/server.ts(1,49): error TS2307: Cannot find module 'typeorm' or its corresponding type declarations.
+src/server.ts(8,11): error TS7006: Parameter 'err' implicitly has an 'any' type.
+src/services/course.service.ts(51,27): error TS7006: Parameter 'p' implicitly has an 'any' type.
+src/services/course.service.ts(55,39): error TS7006: Parameter 'section' implicitly has an 'any' type.
+src/services/course.service.ts(60,39): error TS7006: Parameter 'lesson' implicitly has an 'any' type.
+src/services/course.service.ts(62,41): error TS2339: Property 'is_completed' does not exist on type '{}'.
+src/services/course.service.ts(67,54): error TS7006: Parameter 'l' implicitly has an 'any' type.
+src/services/course.service.ts(70,52): error TS2339: Property 'is_completed' does not exist on type '{}'.
+src/services/course.service.ts(82,39): error TS2339: Property 'watched_seconds' does not exist on type '{}'.
+src/services/course.service.ts(98,46): error TS7006: Parameter 'l' implicitly has an 'any' type.
