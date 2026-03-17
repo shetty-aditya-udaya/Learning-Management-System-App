@@ -7,7 +7,13 @@ import { CourseTree } from "@/components/course/CourseTree";
 import { VideoPlayer } from "@/components/video/VideoPlayer";
 import { ChevronLeft, ChevronRight, BookOpen, Share2, Info } from "lucide-react";
 
-const fetcher = (url: string) => api.get(url).then(res => res.data);
+const fetcher = (url: string) => api.get(url).then(res => {
+  console.log(`[FETCH-DEBUG] Success: ${url} (Status: ${res.status})`);
+  return res.data;
+}).catch(err => {
+  console.error(`[FETCH-DEBUG] Error: ${url} (Status: ${err.response?.status}, Message: ${err.message})`);
+  throw err;
+});
 
 export default function LessonPage({ 
   params 
@@ -16,21 +22,30 @@ export default function LessonPage({
 }) {
   const { courseId, lessonId } = React.use(params);
   
-  console.log(`[ROUTE-DEBUG] courseId: ${courseId}, lessonId: ${lessonId}`);
+  console.log(`[ROUTE-DEBUG] Resolved Path -> courseId: ${courseId}, lessonId: ${lessonId}`);
 
   const { data: treeData, error: treeError } = useSWR(`/courses/${courseId}/tree`, fetcher);
   const { data: lessonData, error: lessonError } = useSWR(`/courses/${courseId}/lesson/${lessonId}`, fetcher);
 
   if (treeError || lessonError) {
+      const errorStatus = treeError?.response?.status || lessonError?.response?.status;
+      const errorMessage = treeError?.message || lessonError?.message;
+      
       return (
          <div className="flex-1 p-8 flex items-center justify-center bg-slate-50">
-            <div className="bg-white p-8 rounded-3xl border border-red-100 max-w-md text-center shadow-xl animate-in zoom-in-95 duration-300">
+            <div className="bg-white p-8 rounded-3xl border border-red-100 max-w-lg text-center shadow-xl animate-in zoom-in-95 duration-300">
                <div className="w-16 h-16 bg-red-50 text-red-600 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Info size={32} />
                </div>
-               <h2 className="font-bold text-2xl mb-2 text-slate-900">Access Denied</h2>
-               <p className="text-slate-500 mb-6">{lessonError?.response?.data?.message || "You cannot view this lesson right now. Please enroll to continue."}</p>
-               <button className="btn-premium w-full">Go to Catalog</button>
+               <h2 className="font-bold text-2xl mb-2 text-slate-900">Content Unavailable (HTTP {errorStatus || "???"})</h2>
+               <div className="text-left bg-slate-50 p-4 rounded-xl mb-6 font-mono text-xs space-y-1 border border-slate-100">
+                  <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">Debug Info</p>
+                  <p><span className="text-slate-500">CourseID:</span> {courseId}</p>
+                  <p><span className="text-slate-500">LessonID:</span> {lessonId}</p>
+                  <p><span className="text-slate-500">Error:</span> {errorMessage}</p>
+               </div>
+               <p className="text-slate-500 mb-6">This usually happens if the backend is down or the IDs are incorrect. Please verify your connection.</p>
+               <button onClick={() => window.location.href = "/courses"} className="btn-premium w-full">Back to Courses</button>
             </div>
          </div>
       );

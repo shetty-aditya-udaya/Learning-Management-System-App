@@ -1,5 +1,7 @@
 import axios from "axios";
 
+console.log("[API-DEBUG] Base URL:", process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api");
+
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api",
   withCredentials: true, // Need this to send HTTPOnly cookies for refresh tokens
