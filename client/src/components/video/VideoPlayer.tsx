@@ -102,7 +102,7 @@ export function VideoPlayer({ courseId, lessonId, videoUrl, initialSeconds, next
       // Auto-advance
       if (nextLessonId) {
          setTimeout(() => {
-            window.location.href = `/dashboard/learn/${courseId}/lesson/${nextLessonId}`;
+            window.location.href = `/learn/` + courseId + `/lesson/` + nextLessonId;
          }, 2000);
       }
     } catch (err) {
