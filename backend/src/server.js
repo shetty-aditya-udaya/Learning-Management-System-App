@@ -10,14 +10,38 @@ const progressRoutes = require('./routes/progress.routes');
 
 const app = express();
 const PORT = process.env.PORT || 8000;
-const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000';
 
-console.log(`Configuring CORS for origin: ${CLIENT_URL}`);
+// CORS configuration with diagnostic logging
+const allowedOrigin = process.env.CLIENT_URL || 'http://localhost:3000';
+
+console.log(`[CORS-SETUP] Configured allowed origin: ${allowedOrigin}`);
 
 app.use(cors({
-  origin: CLIENT_URL,
-  credentials: true
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) {
+      console.log(`[CORS-DEBUG] Request with no origin allowed`);
+      return callback(null, true);
+    }
+    
+    if (origin === allowedOrigin || origin === 'http://localhost:3000') {
+      return callback(null, true);
+    } else {
+      console.warn(`[CORS-WARN] Origin mismatch! Request from: ${origin}, Allowed: ${allowedOrigin}`);
+      // Strictly allow only the configured origin in production
+      if (process.env.NODE_ENV === 'production') {
+        return callback(new Error('Not allowed by CORS'), false);
+      }
+      // In dev, allow but warn
+      return callback(null, true);
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
+  exposedHeaders: ['Set-Cookie']
 }));
+
 app.use(express.json());
 app.use(cookieParser());
 
