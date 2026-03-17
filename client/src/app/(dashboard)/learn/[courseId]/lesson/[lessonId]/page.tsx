@@ -15,6 +15,8 @@ export default function LessonPage({
   params: Promise<{ courseId: string, lessonId: string }> 
 }) {
   const { courseId, lessonId } = React.use(params);
+  
+  console.log(`[ROUTE-DEBUG] courseId: ${courseId}, lessonId: ${lessonId}`);
 
   const { data: treeData, error: treeError } = useSWR(`/courses/${courseId}/tree`, fetcher);
   const { data: lessonData, error: lessonError } = useSWR(`/courses/${courseId}/lesson/${lessonId}`, fetcher);
