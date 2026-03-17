@@ -54,7 +54,7 @@ export const CourseTree: React.FC<CourseTreeProps> = ({ courseId, sections, acti
                   {section.lessons.map((lesson) => (
                     <Link
                       key={lesson.id}
-                      href={`/dashboard/learn/${courseId}/lesson/${lesson.id}`}
+                      href={`/learn/${courseId}/lesson/${lesson.id}`}
                       className={`group flex items-center gap-3 p-3 rounded-xl transition-all duration-300 relative ${
                         activeLessonId === lesson.id
                           ? "bg-white shadow-md shadow-purple-500/5 border border-purple-100"

@@ -19,7 +19,7 @@ export const Navbar = () => {
     <nav className="sticky top-0 z-[50] w-full border-b border-slate-100 bg-white/60 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         {/* Logo */}
-        <Link href="/dashboard" className="flex items-center gap-2 group transition-all">
+        <Link href="/" className="flex items-center gap-2 group transition-all">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-purple-600 to-blue-600 text-white shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform">
             <BookOpen size={24} />
           </div>
@@ -30,10 +30,10 @@ export const Navbar = () => {
 
         {/* Navigation Links - Desktop */}
         <div className="hidden md:flex items-center gap-8">
-          <Link href="/dashboard/courses" className="text-sm font-semibold text-slate-600 hover:text-purple-600 transition-colors">
+          <Link href="/courses" className="text-sm font-semibold text-slate-600 hover:text-purple-600 transition-colors">
             Courses
           </Link>
-          <Link href="/dashboard" className="text-sm font-semibold text-slate-600 hover:text-purple-600 transition-colors">
+          <Link href="/" className="text-sm font-semibold text-slate-600 hover:text-purple-600 transition-colors">
             Dashboard
           </Link>
         </div>

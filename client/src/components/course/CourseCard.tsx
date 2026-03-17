@@ -83,7 +83,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
 
         {/* Action Button */}
         <Link 
-          href={`/dashboard/courses/${id}`}
+          href={`/courses/${id}`}
           className="btn-premium group/btn flex items-center justify-center gap-2 group-hover:gap-3 transition-all"
         >
           {progress > 0 ? "Continue Learning" : "Enroll Now"}

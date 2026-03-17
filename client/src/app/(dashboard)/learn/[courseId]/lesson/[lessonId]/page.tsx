@@ -99,7 +99,7 @@ export default function LessonPage({
             {/* Navigation Controls */}
             <div className="flex items-center gap-4 py-2">
                 <button
-                  onClick={() => lessonData.prev_lesson_id && (window.location.href = `/dashboard/learn/${courseId}/lesson/${lessonData.prev_lesson_id}`)}
+                  onClick={() => lessonData.prev_lesson_id && (window.location.href = `/learn/${courseId}/lesson/${lessonData.prev_lesson_id}`)}
                   disabled={!lessonData.prev_lesson_id}
                   className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-white border border-slate-200 rounded-2xl font-bold text-slate-700 hover:bg-slate-50 hover:shadow-md disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                 >
@@ -107,7 +107,7 @@ export default function LessonPage({
                    <span>Previous</span>
                 </button>
                 <button
-                  onClick={() => lessonData.next_lesson_id && (window.location.href = `/dashboard/learn/${courseId}/lesson/${lessonData.next_lesson_id}`)}
+                  onClick={() => lessonData.next_lesson_id && (window.location.href = `/learn/${courseId}/lesson/${lessonData.next_lesson_id}`)}
                   disabled={!lessonData.next_lesson_id}
                   className="flex-[2] btn-premium flex items-center justify-center gap-2 px-6 py-4"
                 >
