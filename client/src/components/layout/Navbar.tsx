@@ -2,9 +2,19 @@
 
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { BookOpen, User, Bell, LogOut, Menu } from "lucide-react";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { getDisplayName, getInitials } from "@/lib/userUtils";
 
 export const Navbar = () => {
+  const router = useRouter();
+  const { user, logout } = useAuthStore();
+
+  const handleLogout = () => {
+    logout();
+    router.push("/login");
+  };
   return (
     <nav className="sticky top-0 z-[50] w-full border-b border-slate-100 bg-white/60 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
@@ -39,13 +49,21 @@ export const Navbar = () => {
 
           <div className="flex items-center gap-3 pl-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-tr from-purple-100 to-blue-100 text-purple-600 font-bold border border-purple-200">
-              AD
+              {getInitials(user)}
             </div>
             <div className="hidden lg:block text-left">
-              <p className="text-xs font-bold text-slate-900 leading-none">Aditya Shetty</p>
-              <p className="text-[10px] text-slate-500 mt-1">Student Account</p>
+              <p className="text-xs font-bold text-slate-900 leading-none">{getDisplayName(user)}</p>
+              <p className="text-[10px] text-slate-500 mt-1 uppercase tracking-tighter">{user?.role || "Student"} Account</p>
             </div>
           </div>
+
+          <button 
+            onClick={handleLogout}
+            className="flex items-center gap-2 p-2 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all font-bold text-xs"
+            title="Sign Out"
+          >
+            <LogOut size={20} />
+          </button>
           
           <button className="md:hidden p-2 text-slate-600">
             <Menu size={24} />

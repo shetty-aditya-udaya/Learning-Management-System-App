@@ -4,9 +4,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
 import { BookOpen, Mail, Lock, ArrowRight, Github, Sparkles } from "lucide-react";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { setUser } = useAuthStore();
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,8 +22,9 @@ export default function LoginPage() {
 
     try {
       const endpoint = isLogin ? "/auth/login" : "/auth/register";
-      await api.post(endpoint, { email, password });
+      const res = await api.post(endpoint, { email, password });
       
+      setUser(res.data.user);
       router.push("/dashboard");
     } catch (err: any) {
       setError(err.response?.data?.message || "Authentication failed");

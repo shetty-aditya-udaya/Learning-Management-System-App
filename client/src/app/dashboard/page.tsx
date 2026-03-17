@@ -11,8 +11,11 @@ import {
   Trophy,
   Zap
 } from "lucide-react";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { getDisplayName } from "@/lib/userUtils";
 
 export default function DashboardPage() {
+  const { user } = useAuthStore();
   const [courses, setCourses] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -42,7 +45,7 @@ export default function DashboardPage() {
             Ready to learn?
           </div>
           <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">
-            Welcome back, <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">Aditya!</span>
+            Welcome back, <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">{getDisplayName(user)}!</span>
           </h1>
           <p className="text-slate-300 text-lg leading-relaxed">
             You've completed 75% of your weekly goal. Keep it up and reach the top 5% of learners this month!
